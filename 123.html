@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025年第一届上海市金融行业职工技能邀请赛</title>
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 图标库 -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 配置Tailwind -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0F4C81', // 深金融蓝（主色）
+                        secondary: '#4A90E2', // 浅蓝（辅助色）
+                        dark: '#12192C', // 深色模式背景
+                        light: '#F5F8FF' // 浅色模式背景
+                    },
+                    fontFamily: {
+                        sans: ['Microsoft YaHei', 'Inter', 'system-ui', 'sans-serif'], // 优先显示微软雅黑，适配中文
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            }
+            .transition-all-300 {
+                transition: all 0.3s ease;
+            }
+            /* 优化背景图显示：固定高度+适配不同设备+备用背景色 */
+            .bg-custom {
+               background-image: url('https://qdy-1315903741.cos.ap-nanjing.myqcloud.com/upimages/614/20251203/76b66ad5e9fbcec011869eb5394273e7.jpg');
+               background-size: cover; /* 覆盖整个容器，保持比例，裁剪超出部分 */
+               background-position: center center; /* 强制水平+垂直双居中（关键） */
+               background-repeat: no-repeat;
+               background-color: #F5F8FF;
+               min-height: 100vh;
+               background-attachment: local; /* 替代fixed，避免居中偏移 */
+              }
+            .bg-custom {
+               background-image: url('https://qdy-1315903741.cos.ap-nanjing.myqcloud.com/upimages/614/20251203/76b66ad5e9fbcec011869eb5394273e7.jpg');
+               background-size: cover; /* 覆盖整个容器，保持比例，裁剪超出部分 */
+               background-position: center center; /* 强制水平+垂直双居中（关键） */
+               background-repeat: no-repeat;
+               background-color: #F5F8FF;
+               min-height: 100vh;
+               background-attachment: local; /* 替代fixed，避免居中偏移 */
+              }
+.dark .bg-custom-dark {
+    background-image: url('https://qdy-1315903741.cos.ap-nanjing.myqcloud.com/upimages/614/20251203/76b66ad5e9fbcec011869eb5394273e7.jpg');
+    background-size: cover;
+    background-position: center center; /* 双居中 */
+    background-repeat: no-repeat;
+    background-color: #12192C;
+    min-height: 100vh;
+    filter: brightness(0.4) contrast(1.1);
+}
+            /* 移动端背景图优化 */
+            @media (max-width: 768px) {
+                .bg-custom, .dark .bg-custom-dark {
+                    background-attachment: scroll; /* 移动端取消固定背景，避免卡顿 */
+                    background-position: top center;
+                }
+            }
+        }
+    </style>
+</head>
+<body class="bg-custom bg-light/90 dark:bg-custom-dark dark:text-light transition-all-300">
+    <!-- 导航栏 -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-dark/90 backdrop-blur-md shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-primary">金融行业职工技能邀请赛</h1>
+            <div class="flex items-center gap-4">
+                <!-- 深浅色切换按钮 -->
+                <button id="themeToggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-all-300">
+                    <i class="fa fa-moon-o dark:hidden text-gray-600" aria-hidden="true"></i>
+                    <i class="fa fa-sun-o hidden dark:inline text-yellow-400" aria-hidden="true"></i>
+                </button>
+                <!-- 导航链接 -->
+                <nav class="hidden md:flex gap-6">
+                    <a href="#background" class="hover:text-primary dark:hover:text-secondary transition-all-300">赛事背景</a>
+                    <a href="#timeline" class="hover:text-primary dark:hover:text-secondary transition-all-300">时间轴</a>
+                    <a href="#tracks" class="hover:text-primary dark:hover:text-secondary transition-all-300">参赛赛道</a>
+                    <a href="#awards" class="hover:text-primary dark:hover:text-secondary transition-all-300">奖项设置</a>
+                    <a href="#materials" class="hover:text-primary dark:hover:text-secondary transition-all-300">赛事物料</a>
+                    <a href="#registration" class="hover:text-primary dark:hover:text-secondary transition-all-300">报名通道</a>
+                    <a href="#faq" class="hover:text-primary dark:hover:text-secondary transition-all-300">常见问题</a>
+                </nav>
+                <!-- 移动端菜单按钮 -->
+                <button id="menuToggle" class="md:hidden p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
+                    <i class="fa fa-bars text-gray-600 dark:text-gray-300" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+        <!-- 移动端导航菜单 -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white dark:bg-gray-800 shadow-lg absolute w-full">
+            <div class="container mx-auto px-4 py-3 flex flex-col gap-4">
+                <a href="#background" class="py-2 hover:text-primary dark:hover:text-secondary transition-all-300">赛事背景</a>
+                <a href="#timeline" class="py-2 hover:text-primary dark:hover:text-secondary transition-all-300">时间轴</a>
+                <a href="#tracks" class="py-2 hover:text-primary dark:hover:text-secondary transition-all-300">参赛赛道</a>
+                <a href="#awards" class="py-2 hover:text-primary dark:hover:text-secondary transition-all-300">奖项设置</a>
+                <a href="#materials" class="py-2 hover:text-primary dark:hover:text-secondary transition-all-300">赛事物料</a>
+                <a href="#registration" class="py-2 hover:text-primary dark:hover:text-secondary transition-all-300">报名通道</a>
+                <a href="#faq" class="py-2 hover:text-primary dark:hover:text-secondary transition-all-300">常见问题</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 英雄区 -->
+    <section class="pt-28 pb-16 bg-gradient-to-b from-primary/30 to-transparent dark:from-primary/50">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-shadow text-white">2025年第一届上海市金融行业职工技能邀请赛</h1>
+            <p class="text-lg md:text-xl text-white/90 mb-8 max-w-3xl mx-auto">提升专业素养 · 弘扬工匠精神 · 实现训赛证用一体化</p>
+            <a href="#registration" class="inline-block bg-primary hover:bg-primary/90 text-white font-medium px-6 py-3 rounded-lg shadow-md transition-all-300">
+                立即报名参赛
+            </a>
+        </div>
+    </section>
+
+    <!-- 赛事海报&二维码 -->
+    <section id="materials" class="py-12 bg-white/95 dark:bg-gray-800/95 rounded-xl shadow-md mx-4 mb-16 scroll-mt-24 backdrop-blur-sm">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center text-primary dark:text-secondary">赛事物料</h2>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <!-- 赛事海报 -->
+                <div class="rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all-300">
+                    <img src="https://替换为你的海报图片链接" alt="2025金融行业职工技能邀请赛官方海报" 
+                         class="w-full h-auto object-cover dark:opacity-90">
+                    <p class="text-center py-3 text-gray-600 dark:text-gray-300 text-sm">赛事官方海报（点击可下载）</p>
+                </div>
+                <!-- 报名二维码 -->
+                <div class="text-center">
+                    <div class="inline-block p-4 bg-white dark:bg-gray-700 rounded-lg shadow-lg">
+                        <img src="https://替换为你的二维码图片链接" alt="赛事报名小程序二维码" 
+                             class="w-64 h-64 object-cover">
+                    </div>
+                    <p class="mt-4 text-gray-600 dark:text-gray-300">
+                        扫码进入赛事小程序<br>
+                        可查看赛程/刷题/提交方案
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="container mx-auto px-4 py-12">
+        <!-- 赛事背景 -->
+        <section id="background" class="mb-20 scroll-mt-24">
+            <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center text-primary dark:text-secondary">赛事背景</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- 组织单位 -->
+                <div class="bg-white/95 dark:bg-gray-800/95 rounded-xl shadow-md p-6 hover:shadow-lg transition-all-300 backdrop-blur-sm">
+                    <h3 class="text-xl font-semibold mb-4 text-primary dark:text-secondary flex items-center">
+                        <i class="fa fa-building-o mr-2" aria-hidden="true"></i>组织单位
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-medium text-gray-700 dark:text-gray-200">指导单位</h4>
+                            <p class="text-gray-600 dark:text-gray-300">上海市总工会、上海现代服务业联合会、上海金融业联合会</p>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-700 dark:text-gray-200">主办单位</h4>
+                            <p class="text-gray-600 dark:text-gray-300">上海市浦东新区总工会</p>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-700 dark:text-gray-200">承办单位</h4>
+                            <p class="text-gray-600 dark:text-gray-300">上海市浦东新区侨外资银行工会联合会、上海理财周刊文化发展有限公司</p>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-700 dark:text-gray-200">支持单位</h4>
+                            <p class="text-gray-600 dark:text-gray-300">中欧陆家嘴国际金融研究院、上海对外经贸大学数字金融产业学院等</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 参赛对象与赛事目的 -->
+                <div class="bg-white/95 dark:bg-gray-800/95 rounded-xl shadow-md p-6 hover:shadow-lg transition-all-300 backdrop-blur-sm">
+                    <h3 class="text-xl font-semibold mb-4 text-primary dark:text-secondary flex items-center">
+                        <i class="fa fa-users mr-2" aria-hidden="true"></i>参赛对象
+                    </h3>
+                    <ul class="list-disc list-inside text-gray-600 dark:text-gray-300 mb-6 space-y-2">
+                        <li>在上海工作、学习或生活的具有资产管理专业知识的人士</li>
+                        <li>性别、户籍、国籍、职业不限</li>
+                        <li>需在上海市金融行业工作，获得所在机构许可（加盖公章）</li>
+                        <li>职业操守良好，无职业违规记录</li>
+                    </ul>
+
+                    <h3 class="text-xl font-semibold mb-4 text-primary dark:text-secondary flex items-center">
+                        <i class="fa fa-bullseye mr-2" aria-hidden="true"></i>赛事目的
+                    </h3>
+                    <ul class="list-disc list-inside text-gray-600 dark:text-gray-300 space-y-2">
+                        <li>提升金融职工专业能力，适配行业发展新要求</li>
+                        <li>弘扬工匠精神，培育爱岗敬业的职业态度</li>
+                        <li>实现“训赛证用”一体化，构建完整技能提升体系</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 赛事时间轴 -->
+        <section id="timeline" class="mb-20 scroll-mt-24">
+            <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center text-primary dark:text-secondary">赛事时间轴</h2>
+            
+            <div class="relative max-w-4xl mx-auto">
+                <!-- 时间轴主线 -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-primary/20 dark:bg-primary/40 rounded-full"></div>
+                
+                <!-- 时间轴节点 -->
+                <div class="space-y-12">
+                    <!-- 6月 -->
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 md:pr-8 md:text-right order-2 md:order-1">
+                            <h3 class="text-lg font-semibold text-primary dark:text-secondary">6月</h3>
+                            <ul class="text-gray-600 dark:text-gray-300 space-y-2 mt-2">
+                                <li>6月14日：赛事启动会（邀请相关领导、机构代表及媒体）</li>
+                                <li>6月-9月12日：职工业务方案赛&“金点子”方案提交</li>
+                            </ul>
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-primary dark:bg-secondary flex items-center justify-center z-10 my-4 md:my-0 order-1 md:order-2">
+                            <i class="fa fa-flag text-white text-xs" aria-hidden="true"></i>
+                        </div>
+                        <div class="md:w-1/2 md:pl-8 order-3"></div>
+                    </div>
+
+                    <!-- 7-8月 -->
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 md:pr-8 order-1"></div>
+                        <div class="w-8 h-8 rounded-full bg-primary dark:bg-secondary flex items-center justify-center z-10 my-4 md:my-0 order-2">
+                            <i class="fa fa-book text-white text-xs" aria-hidden="true"></i>
+                        </div>
+                        <div class="md:w-1/2 md:pl-8 text-left order-3">
+                            <h3 class="text-lg font-semibold text-primary dark:text-secondary">7-8月</h3>
+                            <ul class="text-gray-600 dark:text-gray-300 space-y-2 mt-2">
+                                <li>7月11日、20日（周日）：2场线下金融专业技能培训</li>
+                                <li>8月8日、16日（周六）：2场线下金融专业技能培训</li>
+                                <li>7月15日-9月30日：专业知识线上竞答（可重复刷题）</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 9月 -->
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 md:pr-8 md:text-right order-2 md:order-1">
+                            <h3 class="text-lg font-semibold text-primary dark:text-secondary">9月</h3>
+                            <ul class="text-gray-600 dark:text-gray-300 space-y-2 mt-2">
+                                <li>9月12日：方案提交截止日期</li>
+                                <li>9月27日（周六）：行业专家首轮封闭式书面评审</li>
+                            </ul>
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-primary dark:bg-secondary flex items-center justify-center z-10 my-4 md:my-0 order-1 md:order-2">
+                            <i class="fa fa-check-square-o text-white text-xs" aria-hidden="true"></i>
+                        </div>
+                        <div class="md:w-1/2 md:pl-8 order-3"></div>
+                    </div>
+
+                    <!-- 10月 -->
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 md:pr-8 order-1"></div>
+                        <div class="w-8 h-8 rounded-full bg-primary dark:bg-secondary flex items-center justify-center z-10 my-4 md:my-0 order-2">
+                            <i class="fa fa-trophy text-white text-xs" aria-hidden="true"></i>
+                        </div>
+                        <div class="md:w-1/2 md:pl-8 text-left order-3">
+                            <h3 class="text-lg font-semibold text-primary dark:text-secondary">10月</h3>
+                            <ul class="text-gray-600 dark:text-gray-300 space-y-2 mt-2">
+                                <li>10月12日（周日）：职工赛&“金点子”线下复赛路演</li>
+                                <li>10月25日（周六）：决赛说明会（线下培训）</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 11-12月 -->
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 md:pr-8 md:text-right order-2 md:order-1">
+                            <h3 class="text-lg font-semibold text-primary dark:text-secondary">11-12月</h3>
+                            <ul class="text-gray-600 dark:text-gray-300 space-y-2 mt-2">
+                                <li>11月8日（周六）：决赛现场路演（评委问答形式）</li>
+                                <li>11月中旬：公布获奖名单（微信公众号等渠道）</li>
+                                <li>12月上旬：赛后人才深造培训、考证</li>
+                                <li>2025年底：线下大型颁奖仪式</li>
+                            </ul>
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-primary dark:bg-secondary flex items-center justify-center z-10 my-4 md:my-0 order-1 md:order-2">
+                            <i class="fa fa-star text-white text-xs" aria-hidden="true"></i>
+                        </div>
+                        <div class="md:w-1/2 md:pl-8 order-3"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 参赛赛道 -->
+        <section id="tracks" class="mb-20 scroll-mt-24">
+            <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center text-primary dark:text-secondary">参赛赛道</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- 知识竞答赛道 -->
+                <div class="bg-white/95 dark:bg-gray-800/95 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all-300 backdrop-blur-sm">
+                    <div class="bg-primary/10 dark:bg-primary/20 p-4">
+                        <h3 class="text-xl font-semibold text-primary dark:text-secondary flex items-center">
+                            <i class="fa fa-question-circle mr-2" aria-hidden="true"></i>知识竞答（公司业务）
+                        </h3>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div>
+                            <h4 class="font-medium text-gray-700 dark:text-gray-200">赛道性质</h4>
+                            <p class="text-gray-600 dark:text-gray-300">个人赛，线上答题，独立完成</p>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-700 dark:text-gray-200">考察内容</h4>
+                            <ul class="text-gray-600 dark:text-gray-300 space-y-1">
+                                <li>金融基础（30%）</li>
+                                <li>公司金融（40%）</li>
+                                <li>法律法规（30%，含反欺诈、反洗钱等）</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-700 dark:text-gray-200">参赛指南</h4>
+                            <p class="text-gray-600 dark:text-gray-300">微信扫描小程序二维码→注册账号→在线答题（未注册成绩无效）</p>
+                        </div>
+                        <div class="mt-6">
+                            <span class="inline-block bg-primary/10 dark:bg-primary/20 text-primary dark:text-secondary text-sm px-3 py-1 rounded-full">线上参与</span>
+                            <span class="inline-block bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-sm px-3 py-1 rounded-full ml-2">可重复刷题</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 职工业务方案赛道 -->
+                <div class="bg-white/95 dark:bg-gray-800/95 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all-300 backdrop-blur-sm">
+                    <div class="bg-primary/10 dark:bg-primary/20 p-4">
+                        <h3 class="text-xl font-semibold text-primary dark:text-secondary flex items-center">
+                            <i class="fa fa-briefcase mr-2" aria-hidden="true"></i>职工业务方案赛
+                        </h3>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div>
+                            <h4 class="font-medium text-gray-700 dark:text-gray-200">赛道性质</h4>
+                            <p class="text-gray-600 dark:text-gray-300">团队赛（3人一队，可跨部门组队）</p>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-700 dark:text-gray-200">方案主题</h4>
+                            <p class="text-gray-600 dark:text-gray-300">科技/绿色/普惠/养老/数字金融等五篇大文章，或跨境/供应链/并购金融三大热点</p>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-700 dark:text-gray-200">提交要求</h4>
+                            <ul class="text-gray-600 dark:text-gray-300 space-y-1">
+                                <li>PDF格式（A4页面），不超过15页</li>
+                                <li>机构统一发送至：service@jinrongsai.cn</li>
+                                <li>截止日期：9月12日</li>
+                            </ul>
+                        </div>
+                        <div class="mt-6">
+                            <span class="inline-block bg-primary/10 dark:bg-primary/20 text-primary dark:text-secondary text-sm px-3 py-1 rounded-full">团队参赛</span>
+                            <span class="inline-block bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-sm px-3 py-1 rounded-full ml-2">线下路演</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 金点子赛道 -->
+                <div class="bg-white/95 dark:bg-gray-800/95 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all-300 backdrop-blur-sm">
+                    <div class="bg-primary/10 dark:bg-primary/20 p-4">
+                        <h3 class="text-xl font-semibold text-primary dark:text-secondary flex items-center">
+                            <i class="fa fa-lightbulb-o mr-2" aria-hidden="true"></i>金融创新“金点子”
+                        </h3>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div>
+                            <h4 class="font-medium text-gray-700 dark:text-gray-200">赛道性质</h4>
+                            <p class="text-gray-600 dark:text-gray-300">个人赛，聚焦创新建议</p>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-700 dark:text-gray-200">主题方向</h4>
+                            <p class="text-gray-600 dark:text-gray-300">上海国际金融中心建设、金融服务实体经济、普惠金融、风险防范等</p>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-700 dark:text-gray-200">提交要求</h4>
+                            <ul class="text-gray-600 dark:text-gray-300 space-y-1">
+                                <li>PDF格式（A4页面），建议不超过8页</li>
+                                <li>机构统一发送至：jindianzi@jinrongsai.cn</li>
+                                <li>截止日期：9月12日</li>
+                            </ul>
+                        </div>
+                        <div class="mt-6">
+                            <span class="inline-block bg-primary/10 dark:bg-primary/20 text-primary dark:text-secondary text-sm px-3 py-1 rounded-full">个人参赛</span>
+                            <span class="inline-block bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-sm px-3 py-1 rounded-full ml-2">创新导向</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 奖项设置 -->
+        <section id="awards" class="mb-20 scroll-mt-24">
+            <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center text-primary dark:text-secondary">奖项设置</h2>
+            
+            <div class="bg-white/95 dark:bg-gray-800/95 rounded-xl shadow-md overflow-hidden backdrop-blur-sm">
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="bg-primary/10 dark:bg-primary/20">
+                                <th class="py-4 px-6 text-left text-primary dark:text-secondary font-semibold">赛道/奖项</th>
+                                <th class="py-4 px-6 text-left text-primary dark:text-secondary font-semibold">等级</th>
+                                <th class="py-4 px-6 text-left text-primary dark:text-secondary font-semibold">数量</th>
+                                <th class="py-4 px-6 text-left text-primary dark:text-secondary font-semibold">奖励内容</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all-300">
+                                <td class="py-4 px-6 text-gray-700 dark:text-gray-200">公司业务团队赛（侨外资组）</td>
+                                <td class="py-4 px-6 text-gray-600 dark:text-gray-300">一等奖</td>
+                                <td class="py-4 px-6 text-gray-600 dark:text-gray-300">1支</td>
+                                <td class="py-4 px-6 text-gray-600 dark:text-gray-300">奖金3000元/队</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all-300">
+                                <td class="py-4 px-6 text-gray-700 dark:text-gray-200">公司业务团队赛（侨外资组）</td>
+                                <td class="py-4 px-6 text-gray-600 dark:text-gray-300">二等奖</td>
+                                <td class="py-4 px-6 text-gray-600 dark:text-gray-300">2支</td>
+                                <td class="py-4 px-6 text-gray-600 dark:text-gray-300">奖金1500元/队</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all-300">
+                                <td class="py-4 px-6 text-gray-700 dark:text-gray-200">公司业务团队赛（侨外资组）</td>
+                                <td class="py-4 px-6 text-gray-600 dark:text-gray-300">三等奖</td>
+                                <td class="py-4 px-6 text-gray-600 dark:text-gray-300">3支</td>
+                                <td class="py-4 px-6 text-gray-600 dark:text-gray-300">奖金900元/队</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all-300">
+                                <td class="py-4 px-6 text-gray-700 dark:text-gray-200">专业知识竞答</td>
+                                <td class="py-4 px-6 text-gray-600 dark:text-gray-300">一等奖</td>
+                                <td class="py-4 px-6 text-gray-600 dark:text-gray-300">3位</td>
+                                <td class="py-4 px-6 text-gray-600 dark:text-gray-300">奖金1000元/位</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all-300">
+                                <td class="py-4 px-6 text-gray-700 dark:text-gray-200">专业知识竞答</td>
+                                <td class="py-4 px-6 text-gray-600 dark:text-gray-300">二等奖</td>
+                                <td class="py-4 px-6 text-gray-600 dark:text-gray-300">10位</td>
+                                <td class="py-4 px-6 text-gray-600 dark:text-gray-300">奖金300元/位</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all-300">
+                                <td class="py-4 px-6 text-gray-700 dark:text-gray-200">专业知识竞答</td>
+                                <td class="py-4 px-6 text-gray-600 dark:text-gray-300">三等奖</td>
+                                <td class="py-4 px-6 text-gray-600 dark:text-gray-300">30位</td>
+                                <td class="py-4 px-6 text-gray-600 dark:text-gray-300">奖金100元/位</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all-300">
+                                <td class="py-4 px-6 text-gray-700 dark:text-gray-200">金融创新“金点子”</td>
+                                <td class="py-4 px-6 text-gray-600 dark:text-gray-300">专项奖</td>
+                                <td class="py-4 px-6 text-gray-600 dark:text-gray-300">5位</td>
+                                <td class="py-4 px-6 text-gray-600 dark:text-gray-300">奖金3000元/位</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all-300">
+                                <td class="py-4 px-6 text-gray-700 dark:text-gray-200">综合奖项</td>
+                                <td class="py-4 px-6 text-gray-600 dark:text-gray-300">优秀组织奖</td>
+                                <td class="py-4 px-6 text-gray-600 dark:text-gray-300">若干</td>
+                                <td class="py-4 px-6 text-gray-600 dark:text-gray-300">-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="p-6 text-sm text-gray-500 dark:text-gray-400">
+                    注：奖金相关税费由组委会统一代扣代缴
+                </div>
+            </div>
+        </section>
+
+        <!-- 报名通道 -->
+        <section id="registration" class="mb-20 scroll-mt-24">
+            <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center text-primary dark:text-secondary">选手报名通道</h2>
+            
+            <div class="max-w-3xl mx-auto bg-white/95 dark:bg-gray-800/95 rounded-xl shadow-md p-6 md:p-8 backdrop-blur-sm">
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold mb-2 text-primary dark:text-secondary">报名须知</h3>
+                    <ul class="text-gray-600 dark:text-gray-300 space-y-1 text-sm">
+                        <li>1. 报名需获得所在机构许可，后续需提交加盖单位/工会公章的报名表</li>
+                        <li>2. 请根据参赛赛道选择对应报名入口，团队赛需由队长统一报名</li>
+                        <li>3. 报名信息提交后，组委会将通过邮件反馈审核结果</li>
+                    </ul>
+                </div>
+
+                <!-- 报名表单 -->
+                <form id="registrationForm" class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="name" class="block text-gray-700 dark:text-gray-200 font-medium mb-2">姓名 <span class="text-red-500">*</span></label>
+                            <input type="text" id="name" name="name" required
+                                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary dark:focus:ring-secondary focus:border-primary dark:focus:border-secondary bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all-300">
+                        </div>
+                        <div>
+                            <label for="company" class="block text-gray-700 dark:text-gray-200 font-medium mb-2">所在单位 <span class="text-red-500">*</span></label>
+                            <input type="text" id="company" name="company" required
+                                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary dark:focus:ring-secondary focus:border-primary dark:focus:border-secondary bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all-300">
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="institutionType" class="block text-gray-700 dark:text-gray-200 font-medium mb-2">所属机构类型 <span class="text-red-500">*</span></label>
+                            <select id="institutionType" name="institutionType" required
+                                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary dark:focus:ring-secondary focus:border-primary dark:focus:border-secondary bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all-300">
+                                <option value="">请选择</option>
+                                <option value="中资机构">中资机构</option>
+                                <option value="侨外资机构">侨外资机构</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="track" class="block text-gray-700 dark:text-gray-200 font-medium mb-2">参赛赛道 <span class="text-red-500">*</span></label>
+                            <select id="track" name="track" required
+                                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary dark:focus:ring-secondary focus:border-primary dark:focus:border-secondary bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all-300">
+                                <option value="">请选择</option>
+                                <option value="知识竞答（公司业务）">知识竞答（公司业务）</option>
+                                <option value="职工业务方案赛（团队）">职工业务方案赛（团队）</option>
+                                <option value="金融创新“金点子”（个人）">金融创新“金点子”（个人）</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="teamName" class="block text-gray-700 dark:text-gray-200 font-medium mb-2">团队名称（仅团队赛填写）</label>
+                        <input type="text" id="teamName" name="teamName" placeholder="无则不填"
+                            class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary dark:focus:ring-secondary focus:border-primary dark:focus:border-secondary bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all-300">
+                    </div>
+
+                    <!-- 团队成员信息（仅团队赛显示） -->
+                    <div id="teamMembers" class="hidden space-y-4">
+                        <h4 class="text-lg font-medium text-gray-700 dark:text-gray-200">团队成员信息</h4>
+                        <!-- 成员1 -->
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <div>
+                                <label class="block text-gray-700 dark:text-gray-200 font-medium mb-2">成员1姓名 <span class="text-red-500">*</span></label>
+                                <input type="text" name="member1Name" required
+                                    class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary dark:focus:ring-secondary focus:border-primary dark:focus:border-secondary bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all-300">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 dark:text-gray-200 font-medium mb-2">成员1手机号 <span class="text-red-500">*</span></label>
+                                <input type="tel" name="member1Phone" required pattern="^1[3-9]\d{9}$"
+                                    class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary dark:focus:ring-secondary focus:border-primary dark:focus:border-secondary bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all-300"
+                                    placeholder="11位手机号">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 dark:text-gray-200 font-medium mb-2">成员1邮箱</label>
+                                <input type="email" name="member1Email"
+                                    class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary dark:focus:ring-secondary focus:border-primary dark:focus:border-secondary bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all-300">
+                            </div>
+                        </div>
+                        <!-- 成员2（队长已填自身信息，此处填另外2名成员） -->
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <div>
+                                <label class="block text-gray-700 dark:text-gray-200 font-medium mb-2">成员2姓名 <span class="text-red-500">*</span></label>
+                                <input type="text" name="member2Name" required
+                                    class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary dark:focus:ring-secondary focus:border-primary dark:focus:border-secondary bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all-300">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 dark:text-gray-200 font-medium mb-2">成员2手机号 <span class="text-red-500">*</span></label>
+                                <input type="tel" name="member2Phone" required pattern="^1[3-9]\d{9}$"
+                                    class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary dark:focus:ring-secondary focus:border-primary dark:focus:border-secondary bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all-300"
+                                    placeholder="11位手机号">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 dark:text-gray-200 font-medium mb-2">成员2邮箱</label>
+                                <input type="email" name="member2Email"
+                                    class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary dark:focus:ring-secondary focus:border-primary dark:focus:border-secondary bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all-300">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="phone" class="block text-gray-700 dark:text-gray-200 font-medium mb-2">联系电话 <span class="text-red-500">*</span></label>
+                            <input type="tel" id="phone" name="phone" required pattern="^1[3-9]\d{9}$"
+                                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary dark:focus:ring-secondary focus:border-primary dark:focus:border-secondary bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all-300"
+                                placeholder="请输入11位手机号">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-gray-700 dark:text-gray-200 font-medium mb-2">电子邮箱 <span class="text-red-500">*</span></label>
+                            <input type="email" id="email" name="email" required
+                                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary dark:focus:ring-secondary focus:border-primary dark:focus:border-secondary bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all-300"
+                                placeholder="用于接收赛事通知">
+                        </div>
+                    </div>
+
+                    <div class="flex items-center">
+                        <input type="checkbox" id="permission" name="permission" required
+                            class="w-4 h-4 text-primary dark:text-secondary focus:ring-primary dark:focus:ring-secondary border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700">
+                        <label for="permission" class="ml-2 text-gray-600 dark:text-gray-300">已获得所在单位许可，承诺无职业违规记录 <span class="text-red-500">*</span></label>
+                    </div>
+
+                    <button type="submit" class="w-full bg-primary hover:bg-primary/90 text-white font-medium px-6 py-3 rounded-lg shadow-md transition-all-300 flex items-center justify-center">
+                        <i class="fa fa-paper-plane mr-2" aria-hidden="true"></i> 提交报名信息
+                    </button>
+                </form>
+
+                <!-- 提交成功提示 -->
+                <div id="successMessage" class="hidden mt-6 p-4 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-lg text-green-700 dark:text-green-300">
+                    <div class="flex items-center">
+                        <i class="fa fa-check-circle mr-2 text-xl" aria-hidden="true"></i>
+                        <div>
+                            <h4 class="font-medium">报名信息提交成功！</h4>
+                            <p class="text-sm mt-1">组委会将在3个工作日内通过邮件反馈审核结果，请保持通讯畅通。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 常见问题 -->
+        <section id="faq" class="mb-12 scroll-mt-24">
+            <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center text-primary dark:text-secondary">常见问题</h2>
+            <div class="max-w-3xl mx-auto bg-white/95 dark:bg-gray-800/95 rounded-xl shadow-md p-6 md:p-8 backdrop-blur-sm">
+                <div class="space-y-6">
+                    <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+                        <h3 class="text-lg font-semibold text-primary dark:text-secondary flex items-center">
+                            <i class="fa fa-question-circle mr-2" aria-hidden="true"></i>报名后多久能收到审核结果？
+                        </h3>
+                        <p class="mt-2 text-gray-600 dark:text-gray-300">组委会将在收到报名信息后的3个工作日内通过邮件反馈审核结果，若未收到可发送邮件至service@jinrongsai.cn咨询。</p>
+                    </div>
+                    <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+                        <h3 class="text-lg font-semibold text-primary dark:text-secondary flex items-center">
+                            <i class="fa fa-question-circle mr-2" aria-hidden="true"></i>团队赛可以跨机构组队吗？
+                        </h3>
+                        <p class="mt-2 text-gray-600 dark:text-gray-300">暂不支持跨机构组队，团队成员需隶属于同一金融机构，且均需获得所在单位许可。</p>
+                    </div>
+                    <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+                        <h3 class="text-lg font-semibold text-primary dark:text-secondary flex items-center">
+                            <i class="fa fa-question-circle mr-2" aria-hidden="true"></i>线上竞答可以重复参与吗？
+                        </h3>
+                        <p class="mt-2 text-gray-600 dark:text-gray-300">可以，7月15日-9月30日期间可重复刷题，最终取最高成绩作为竞答成绩。</p>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-primary dark:text-secondary flex items-center">
+                            <i class="fa fa-question-circle mr-2" aria-hidden="true"></i>获奖奖金如何发放？
+                        </h3>
+                        <p class="mt-2 text-gray-600 dark:text-gray-300">颁奖仪式后15个工作日内，组委会将扣除税费后的奖金发放至获奖选手/团队指定账户，需提前提交银行卡信息。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-100/95 dark:bg-gray-800/95 py-8 backdrop-blur-sm">
+        <div class="container mx-auto px-4">
+            <div class="text-center text-gray-600 dark:text-gray-300">
+                <h3 class="text-xl font-bold text-primary dark:text-secondary mb-4">2025年第一届上海市金融行业职工技能邀请赛</h3>
+                <p class="mb-4">地址：中国·上海 | 联系邮箱：service@jinrongsai.cn</p>
+                <p class="text-sm">© 2025 上海市浦东新区总工会 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // 深浅色模式切换
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+
+        // 检查本地存储的主题偏好
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            if (html.classList.contains('dark')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // 移动端菜单切换
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // 关闭移动端菜单
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+
+        // 报名表单提交处理
+        const registrationForm = document.getElementById('registrationForm');
+        const successMessage = document.getElementById('successMessage');
+
+        registrationForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // 模拟表单提交
+            setTimeout(() => {
+                registrationForm.reset();
+                successMessage.classList.remove('hidden');
+                
+                // 3秒后隐藏成功提示
+                setTimeout(() => {
+                    successMessage.classList.add('hidden');
+                }, 3000);
+            }, 1000);
+        });
+
+        // 表单验证
+        const phoneInput = document.getElementById('phone');
+        phoneInput.addEventListener('input', () => {
+            if (phoneInput.value.length > 11) {
+                phoneInput.value = phoneInput.value.slice(0, 11);
+            }
+        });
+
+        // 团队赛成员信息显示/隐藏
+        const trackSelect = document.getElementById('track');
+        const teamMembers = document.getElementById('teamMembers');
+
+        trackSelect.addEventListener('change', () => {
+            if (trackSelect.value === '职工业务方案赛（团队）') {
+                teamMembers.classList.remove('hidden');
+                // 给团队成员字段添加必填属性
+                document.querySelectorAll('#teamMembers input[required]').forEach(input => {
+                    input.required = true;
+                });
+            } else {
+                teamMembers.classList.add('hidden');
+                // 移除必填属性
+                document.querySelectorAll('#teamMembers input[required]').forEach(input => {
+                    input.required = false;
+                });
+            }
+        });
+    </script>
+</body>
+</html>
